@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limitless Minds</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+          .chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #B794F4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            background: #FFD700;
+        }
+
+        .chat-button i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .chat-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #B794F4;
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        .chat-tooltip {
+            position: absolute;
+            right: 75px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .chat-button:hover .chat-tooltip {
+            opacity: 1;
+        }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background: linear-gradient(180deg, #000000 0%, #1e0131 100%);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Navbar Styles */
+.navbar {
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    animation: fadeInDown 0.8s ease;
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 2.1rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #FFD700;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5%; 
+    background: url("{{ url_for('static', filename='images/image.png') }}") center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 1s ease;
+}
+
+.hero h1 {
+    font-size: 3.1rem;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    color: #ffffff;
+    line-height: 1.6;
+    opacity: 50%;
+}
+
+/* Button Styles */
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+}
+.team-member img.profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 4px solid #FFD700;
+            transition: transform 0.4s ease;
+            object-fit: cover;
+        }
+
+.btn {
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn {
+    background-color: #a17f05;
+    color: #000;
+}
+
+.btn:hover{
+    background-color: #c09703;
+    color: #000;
+}
+
+
+/* Why Section */
+.why-section {
+    padding: 8rem 5%;
+    position: relative;
+}
+
+.why-title {
+    font-family: 'Playfair Display', serif;
+    color: #FFD700;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  
+}
+
+.why-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    
+}
+
+.why-text {
+    color: #B8B8B8;
+    font-size: 1.5rem;
+    line-height: 1.8;
+}
+
+.why-image {
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+.why-image img {
+    max-width: 100%;
+    border-radius: 20px;
+    height: auto;
+}
+
+/* About Section */
+.about {
+    padding: 8rem 5%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.about-title {
+
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #FFD700;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #B8B8B8;
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.about-image {
+    margin: 4rem auto;
+    max-width: 600px;
+    position: relative;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Team Section */
+.team-section {
+    text-align: center;
+    
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.team-title {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    color: #FFD700;
+    margin-top: 10rem;
+    margin-left: 6rem;
+}
+
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    
+}
+
+.team-member {
+    flex: 0 1 280px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-member::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(183, 148, 244, 0.1), rgba(255, 215, 0, 0.1));
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.team-member:hover::before {
+    transform: translateY(0);
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.team-member img.profile-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    border: 4px solid #FFD700;
+    transition: transform 0.4s ease;
+    object-fit: cover;
+}
+
+.team-member:hover img.profile-img {
+    transform: scale(1.1);
+}
+
+.team-member h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.team-member p {
+    color: #B8B8B8;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.team-member:hover .social-links {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link:hover {
+    transform: translateY(-5px);
+}
+
+.social-link.linkedin {
+    background: #0077B5;
+}
+
+.social-link.github {
+    background: #333;
+}
+
+.social-link i {
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.social-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(0);
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+}
+
+.social-link:hover::after {
+    transform: scale(1);
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 8rem 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.contact-form {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.contact-form h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #FFD700;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #B794F4;
+    outline: none;
+}
+
+.contact-form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-info h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #FFD700;
+}
+
+.contact-info h3 {
+    font-size: 2rem;
+    color: #B794F4;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+    
+    .why-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .team-grid {
+        gap: 2rem;
+    }
+    
+    .team-member {
+        flex: 0 1 100%;
+    }
+}
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.why-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  animation: bounceIn 1s ease-out; /* Apply the bounce animation */
+}
+
+.container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 2rem ;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background-color: #2e0048;
+            border-radius: 10px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+    margin-bottom: 4rem;
+    color: #FFD700;
+    
+    margin-left: 6rem;
+        }
+
+        .services-container {
+            position: relative;
+        }
+
+        .services-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .icon-wrapper {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background-color: #fff18b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .icon-wrapper svg {
+            width: 3rem;
+            height: 3rem;
+            color: #374151;
+        }
+
+        .service-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-description {
+            font-size: 0.875rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+        .chart-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4e73df;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px;
+        }
+        .chart-link:hover {
+            background-color: #375abd; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('static', filename='images/logo.jpeg') }}" class="logo">AstroSoul</a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#login">Login</a>
+        </div>
+    </nav>
+    
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>The universe is speaking. Are you ready to listen?</h1>
+            <p>"Life's uncertainties become clearer through the wisdom of the stars. Begin your spiritual journey now and unlock your cosmic destiny."</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn ">Generate Horroescope</a>
+                <a href="#" class="btn" id="kundaliButton">Kundali</a>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="why" class="why-section">
+        <h2 class="why-title">Why Choose Us?</h2>
+        <div class="why-content">
+            <div class="why-text">
+                <p>Experience personalized spiritual guidance with our AI-powered platform, blending astrology and numerology. Receive custom insights based on your birth details, including detailed birth charts, daily horoscopes, gemstone suggestions, and ritual recommendations. With expert-backed content and an interactive chatbot for immediate support, we offer wellness tools like meditation and sleep routines tailored to your zodiac, helping you align with your true purpose and unlock your full potential.</p>
+            </div>
+            <div class="why-image">
+                <img src="{{ url_for('static', filename='images/img.jpg') }}" alt="Learning illustration">
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <h1 class="title">ASTROLOGY SERVICES</h1>
+        
+        <div class="services-container">
+            <div class="services-wrapper">
+                <button class="nav-button" id="prevBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+
+                <div class="services-grid" id="servicesGrid"></div>
+
+                <button class="nav-button" id="nextBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="team-title">Our Expert Team</h2>
+    <section id="about" class="team-section">
+       
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/saniya.png') }}" alt="Team Member" class="profile-img">
+                <h3>Saniya Bhosale</h3>
+                <p>Backend Developer</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/saniyasbhosale18/" target="_blank" class="social-link linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/Saniya-Bhosale" target="_blank" class="social-link github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/swadesh.jpeg') }}" alt="Team Member" class="profile-img">
+                <h3>Swadesh Jadhav</h3>
+                <p>Frontend Developer</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/swadesh-nitin-jadhav-543630269/" target="_blank" class="social-link linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/snjadhav1" target="_blank" class="social-link github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/sanchit.png') }}" alt="Team Member" class="profile-img">
+                <h3>Sanchit Shelke</h3>
+                <p>Full Stack Developer</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/sanchit-shelke-731214257/" target="_blank" class="social-link linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/shelkesanchit" target="_blank" class="social-link github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/divya.png') }}" alt="Team Member" class="profile-img">
+                <h3>Divya Bhavsar</h3>
+                <p>UI/UX Developer</p>
+                <div<div class="social-links">
+                    <a href="https://www.linkedin.com/in/divya-bhavsar-b4b03b256/" target="_blank" class="social-link linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/Divya-Bhavsar" target="_blank" class="social-link github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+        <div class="contact-info">
+            <h2>For any query mail us</h2>
+            <h3>Connect with us..</h3>
+        </div>
+    </section>
+    <div class="chat-button" id="chatButton">
+        <i class="fas fa-comments"></i>
+        <span class="chat-tooltip">Chat with us!</span>
+    </div>
+      
+    <footer>
+        <p>Copyright © 2025 All Rights Reserved | Limitless ©</p>
+    </footer>
+
+    <script>
+         // Add new chat button functionality
+        // Chat button click functionality
+document.getElementById('chatButton').addEventListener('click', function() {
+    // Navigate to chatbot in the same tab
+    window.location.href = '/chatbot';
+});
+
+// Additional animation for chat button
+const chatButton = document.getElementById('chatButton');
+let isAnimating = false;
+
+chatButton.addEventListener('mouseenter', () => {
+    if (!isAnimating) {
+        isAnimating = true;
+        chatButton.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            chatButton.style.transform = 'scale(1)';
+            isAnimating = false;
+        }, 200);
+    }
+});
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        // Elements to animate
+        const animatedElements = document.querySelectorAll('.team-member, .why-content, .contact-form, .contact-info');
+        animatedElements.forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = "all 0.8s ease-out";
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            const scrolled = window.pageYOffset;
+            hero.style.backgroundPosition = `center ${scrolled * 0.5}px`;
+        });
+
+        // Navbar color change on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                navbar.style.background = 'rgba(0, 0, 0, 0.8)';
+            }
+        });
+
+        // Form submission handler
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Add loading state
+            const button = contactForm.querySelector('button');
+            const originalText = button.textContent;
+            button.textContent = 'Sending...';
+            button.style.opacity = '0.7';
+            button.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                button.textContent = 'Message Sent!';
+                button.style.backgroundColor = '#4CAF50';
+                contactForm.reset();
+
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.opacity = '1';
+                    button.style.backgroundColor = '';
+                    button.disabled = false;
+                }, 2000);
+            }, 1500);
+        });
+
+        // Enhanced team member hover effects with social links
+        document.querySelectorAll('.team-member').forEach(member => {
+            const socialLinks = member.querySelector('.social-links');
+            
+            member.addEventListener('mouseenter', () => {
+                member.style.transform = 'translateY(-10px) scale(1.02)';
+                socialLinks.style.opacity = '1';
+                socialLinks.style.transform = 'translateY(0)';
+            });
+
+            member.addEventListener('mouseleave', () => {
+                member.style.transform = 'translateY(0) scale(1)';
+                socialLinks.style.opacity = '0';
+                socialLinks.style.transform = 'translateY(20px)';
+            });
+        });
+
+        const services = [
+            {
+                icon: `<svg viewBox="0 0 24 24">
+                    <rect x="4" y="4" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                    <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2"></line>
+                    <line x1="4" y1="20" x2="20" y2="4" stroke="currentColor" stroke-width="2"></line>
+                </svg>`,
+                title: 'Free Kundli',
+                description: 'Generate your free online kundli report from Astrotalk. Our Kundli software can help you predict the future for yourself by reading the birth chart.'
+            },
+            {
+                icon: `<svg viewBox="0 0 24 24">
+                    <circle cx="10" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="2"></circle>
+                    <path d="M15 10 C15 10 17 12 17 15" fill="none" stroke="currentColor" stroke-width="2"></path>
+                    <path d="M13 13s1 1 1 2" fill="none" stroke="currentColor" stroke-width="2"></path>
+                </svg>`,
+                title: 'Birth Chart Calculations',
+                description: 'Confused by love? A tool to generate and analyze a user natal chart, showing the positions of planets and astrological houses at the time of birth. the doubts & find the sparks! Check the compatibility with your partner using our tool and ignite a love that lasts forever.'
+            },
+            {
+                icon: `<svg viewBox="0 0 24 24">
+                    <path d="M12 3 L18 12 L12 21 L6 12 Z" fill="none" stroke="currentColor" stroke-width="2"></path>
+                    <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+                </svg>`,
+                title: 'Transit & Progression Analysis',
+                description: 'Insights into how current planetary movements (transits) and progressions impact a user’s life. are myriad celebrations, each a unique form of joy. Explore the diverse world of festivities – a realm of celebration.'
+            },
+            {
+                icon: `<svg viewBox="0 0 24 24">
+                    <circle cx="9" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"></circle>
+                    <circle cx="15" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"></circle>
+                </svg>`,
+                title: 'Personalized Horoscopes',
+                description: 'Custom horoscopes tailored to the user zodiac sign, offering insights and predictions based on astrological data.'
+            }
+        ];
+
+        const servicesGrid = document.getElementById('servicesGrid');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Render services
+        function renderServices() {
+            servicesGrid.innerHTML = services.map((service, index) => `
+                <div class="service-card">
+                    <div class="service-content">
+                        <div class="icon-wrapper">
+                            <div class="text-gray-700">
+                                ${service.icon}
+                            </div>
+                        </div>
+                        <h3 class="service-title">${service.title}</h3>
+                        <p class="service-description">${service.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderServices();
+
+        // Add navigation functionality if needed
+        let currentPage = 0;
+        const totalPages = Math.ceil(services.length / 4);
+
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                // Implement slide animation if needed
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                // Implement slide animation if needed
+            }
+        });
+
+        // Social links hover animation
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', (e) => {
+                const icon = link.querySelector('i');
+                icon.style.transform = 'scale(1.2)';
+            });
+
+            link.addEventListener('mouseleave', (e) => {
+                const icon = link.querySelector('i');
+                icon.style.transform = 'scale(1)';
+            });
+        });
+        document.getElementById('kundaliButton').addEventListener('click', function(event) {
+            // Prevent default link behavior
+            event.preventDefault();
+    
+            // Navigate to kundali page in the same tab
+            window.location.href = '/kundali';
+        });
+    
+        // Additional animation for kundali button
+        const kundaliButton = document.getElementById('kundaliButton');
+        let isAnimatingKundali = false;
+    
+        kundaliButton.addEventListener('mouseenter', () => {
+            if (!isAnimatingKundali) {
+                isAnimatingKundali = true;
+                kundaliButton.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    kundaliButton.style.transform = 'scale(1)';
+                    isAnimatingKundali = false;
+                }, 200);
+            }
+        });
+    </script>
+</body>
+</html>
