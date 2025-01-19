@@ -1,5 +1,7 @@
 # 🌌 AstroSoul: AI-Powered Spiritual Guide 🌟
 
+![Image](https://github.com/user-attachments/assets/d7fd4a40-76f5-4708-a220-08e0c6b3e026)
+
 Welcome to **AstroSoul**, your AI-driven companion for personalized spiritual guidance through astrology and numerology. ✨ Combining ancient wisdom with cutting-edge technology, SoulBuddy helps you unlock the secrets of the universe to lead a more balanced and harmonious life. 🌈
 
 ---
