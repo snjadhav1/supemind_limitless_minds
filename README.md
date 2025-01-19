@@ -6,6 +6,10 @@ Welcome to **AstroSoul**, your AI-driven companion for personalized spiritual gu
 
 ---
 
+![Image](https://github.com/user-attachments/assets/f6076233-05a0-4e49-a828-5a46c7e91ecf)
+
+
+
 ## 📜 Table of Contents
 
 - [🌟 Introduction](#-introduction)  
