@@ -1,6 +1,6 @@
-# 🌌 SoulBuddy: AI-Powered Spiritual Guide 🌟
+# 🌌 AstroSoul: AI-Powered Spiritual Guide 🌟
 
-Welcome to **SoulBuddy**, your AI-driven companion for personalized spiritual guidance through astrology and numerology. ✨ Combining ancient wisdom with cutting-edge technology, SoulBuddy helps you unlock the secrets of the universe to lead a more balanced and harmonious life. 🌈
+Welcome to **AstroSoul**, your AI-driven companion for personalized spiritual guidance through astrology and numerology. ✨ Combining ancient wisdom with cutting-edge technology, SoulBuddy helps you unlock the secrets of the universe to lead a more balanced and harmonious life. 🌈
 
 ---
 
